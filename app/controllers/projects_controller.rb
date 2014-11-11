@@ -19,12 +19,13 @@ class ProjectsController < ApplicationController
 
 	def create
 		@university = University.find(params[:university_id])
-    @project = @university.projects.create(project_params)
-    redirect_to universities_path
-  end
+		@project = @university.projects.create(project_params)
+		redirect_to universities_path
+	end
 
-   def project_params
-    params.require(:project).permit(:title, :description, :target_amount, :end_date, :image)
-  end
+	def project_params
+		params.require(:project).permit(:title, :description, :target_amount, :end_date, :image)
+	end
+
 
 end
