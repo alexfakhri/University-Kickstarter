@@ -1,0 +1,10 @@
+<% if @projects.any? %>
+  <% @projects.each do |project| %>
+    <h2> <%= project.title %> </h2>
+    <p> <%= project.description %>
+  <% end %>
+<% else %>
+  No projects yet
+<% end %>
+
+<a href='/projects/new'>Add a project</a>
