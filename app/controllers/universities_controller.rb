@@ -19,7 +19,7 @@ class UniversitiesController < ApplicationController
   end
 
    def project_params
-    params.require(:university).permit(:name, :description)
+    params.require(:university).permit(:name, :description, :image)
   end
 
 

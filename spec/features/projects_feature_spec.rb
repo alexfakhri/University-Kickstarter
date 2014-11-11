@@ -4,7 +4,6 @@ describe 'projects' do
 
 		before do
 			University.create(name: 'Oxford', description: 'Test description', id: 1)
-			Project.create(title: 'Sports Hall', description: 'Test description', target_amount: 20000)
 		end
 
 	context 'no projects have been added' do
@@ -19,6 +18,7 @@ describe 'projects' do
 	context 'projects have been added' do
 
 		it 'should display projects' do
+			Project.create(title: 'Sports Hall', description: 'Test description', end_date: '01/01/2015', target_amount: 20000, university_id: 1)
 			visit university_path(1)
 			expect(page).to have_content('Sports Hall')
 			expect(page).to have_content('Test description')
