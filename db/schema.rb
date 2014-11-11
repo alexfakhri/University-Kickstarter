@@ -11,15 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 20141111173059) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-
   create_table "donations", force: true do |t|
     t.decimal  "ammount"
     t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "project_id"
+  end
+
+  add_index "donations", ["project_id"], name: "index_donations_on_project_id", using: :btree
+  add_index "donations", ["user_id"], name: "index_donations_on_user_id", using: :btree
 
   create_table "projects", force: true do |t|
     t.string   "title"
@@ -27,7 +34,6 @@ ActiveRecord::Schema.define(version: 20141111173059) do
     t.date     "end_date"
     t.decimal  "target_amount"
     t.decimal  "funded_so_far"
-
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "university_id"
