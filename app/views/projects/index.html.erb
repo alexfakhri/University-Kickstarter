@@ -1,10 +1,13 @@
+<h1> This page displays all of the projects on the site </h1>
+
+
 <% if @projects.any? %>
   <% @projects.each do |project| %>
     <h2> <%= project.title %> </h2>
-    <p> <%= project.description %>
+    <p> <%= project.description %> </p>	
+    <p> <%= project.target_amount %></p>
+    <p> <%= project.end_date.strftime("%d/%m/%Y") %></p>
   <% end %>
 <% else %>
   No projects yet
 <% end %>
-
-<a href='/projects/new'>Add a project</a>
