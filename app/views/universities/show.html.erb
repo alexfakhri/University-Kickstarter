@@ -1,0 +1,18 @@
+<h2> <%= @university.name %> </h2>
+<p> <%= @university.description %> </p>	
+
+
+<%= link_to "Add a project", new_university_project_path(@university) %> 
+
+<p>Live projects</p>
+
+<% if @university.projects.any? %>
+<% @university.projects.each do |project|%>
+		<h2> Title: <%= project.title %> </h2>
+    <p> Description: <%= project.description %> </p>	
+    <p> Fundraising target: <%= project.target_amount %></p>
+    <p> Campaign end date: <%= project.end_date.strftime("%d/%m/%Y") %></p>
+    <% end %>
+<% else %>
+  No projects yet
+<% end %>
