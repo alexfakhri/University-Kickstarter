@@ -9,6 +9,14 @@ class ProjectsController < ApplicationController
 		@project = Project.new
 	end
 
+	def show
+		# @university = University.find(params[:university_id])
+		# @project = Project.find(params[:id])
+		@university = University.find(params[:university_id])
+		@project = @university.projects.find(params[:id])
+
+	end
+
 	def create
 		@university = University.find(params[:university_id])
     @project = @university.projects.create(project_params)
@@ -16,7 +24,7 @@ class ProjectsController < ApplicationController
   end
 
    def project_params
-    params.require(:project).permit(:title, :description, :target_amount, :end_date)
+    params.require(:project).permit(:title, :description, :target_amount, :end_date, :image)
   end
 
 end
