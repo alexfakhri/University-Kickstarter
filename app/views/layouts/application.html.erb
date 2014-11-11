@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+
+
 <head>
   <title>UniversityKickstarter</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
@@ -7,6 +9,15 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+
+<!-- OR AS WE USED IN PREVIOUS FILES... eg flash.each do |name, msg | \n 
+content_tag :div, msg, class: name \n
+end %
+ -->
+
 
 <%= yield %>
 
