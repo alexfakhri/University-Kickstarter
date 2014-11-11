@@ -10,7 +10,7 @@
 <% @university.projects.each do |project|%>
 		<h2> Title:<%= link_to project.title, university_project_path(@university, project) %></h2>
     <p> Description: <%= project.description %> </p>	
-    <p> Fundraising target: <%= project.target_amount %></p>
+    <p> Fundraising target: £<%= project.target_amount %></p>
     <p> Campaign end date: <%= project.end_date.strftime("%d/%m/%Y") %></p>
     <% end %>
 <% else %>
