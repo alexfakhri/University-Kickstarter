@@ -30,6 +30,7 @@ gem 'devise'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
+  gem 'capybara'
 end
 
 # Use ActiveModel has_secure_password
@@ -43,4 +44,5 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
 
