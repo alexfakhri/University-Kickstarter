@@ -17,6 +17,9 @@ Rails.application.routes.draw do
   resources :universities do
     resources :projects
   end
+
+  resources :projects, only: [:index]
+
   # Example resource route with options:
   #   resources :products do
   #     member do
