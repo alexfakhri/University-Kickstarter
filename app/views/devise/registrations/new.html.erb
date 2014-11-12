@@ -21,6 +21,16 @@
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
   </div>
 
+  <div class="field">
+    <%= f.label :university_user %><br />
+    <%= f.check_box :university_user, autocomplete: "off" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :university_id %><br />
+    <%= f.collection_select :university_id, University.all, :id, :name %>
+  </div>
+
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>
