@@ -23,7 +23,7 @@ context "A user, when signed in, should" do
 	it "be able to click 'donate' link and enter donation" do 
 		visit '/projects'
 		click_link 'Donate to project'
-		fill_in 'Ammount', with: '30.00'
+		fill_in 'Amount', with: '30.00'
 		click_button 'Make Donation'
 		expect(current_path).to eq '/'
 	end
