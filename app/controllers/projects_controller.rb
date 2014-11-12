@@ -12,8 +12,9 @@ class ProjectsController < ApplicationController
 	def show
 		# @university = University.find(params[:university_id])
 		# @project = Project.find(params[:id])
-		@university = University.find(params[:university_id])
-		@project = @university.projects.find(params[:id])
+		# @university = University.find(params[:university_id])
+		# @project = @university.projects.find(params[:id])
+		@project = Project.find(params[:id])
 
 	end
 

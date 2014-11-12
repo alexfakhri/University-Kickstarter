@@ -1,3 +1,5 @@
+<% if current_user.university_user? && current_user.university_id == @university.id %>
+
 <%= form_for [@university, @project], html: {multipart: true} do |f| %>
   <%= f.label :title %>
   <%= f.text_field :title %>
@@ -9,4 +11,9 @@
   <%= f.date_field :end_date %>
   <%= f.file_field :image %>
   <%= f.submit %>
+<% end %>
+
+<%else%>
+<p>Sorry, only university users can submit projects!</p>
+
 <% end %>
