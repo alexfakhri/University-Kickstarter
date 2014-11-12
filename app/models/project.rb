@@ -1,6 +1,7 @@
 class Project < ActiveRecord::Base
 
 	belongs_to :university
+	belongs_to :user
 	validates :title, length: {minimum: 1} 
 	validates :description, length: {minimum: 1}
 
