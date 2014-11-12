@@ -61,11 +61,19 @@ describe "Donations" do
 			expect(page).to have_content 'Number of UNIQUE backers 1'
 		end
 
-		it "should display the number of backers" do
+		it "should display the number of unique backers" do
 			Donation.create(amount: 40.00, project_id: 1, user_id: 1)
 			Donation.create(amount: 30.00, project_id: 1, user_id: 2)
 			visit '/projects'
 			expect(page).to have_content 'Number of UNIQUE backers 2'
+		end
+
+		it "should return the total amount donated as a percentage" do
+			visit '/projects'
+			click_link 'Donate to project'
+			fill_in 'Amount', with: '5000.00'
+			click_button 'Make Donation'
+			expect(page).to have_content '25%'			
 		end
 
 

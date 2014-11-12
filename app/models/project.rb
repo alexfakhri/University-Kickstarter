@@ -21,4 +21,9 @@ class Project < ActiveRecord::Base
 		end	
 		return donations_user_ids.uniq.count
 	end
+
+	def donation_percentage
+		self.total_donations / self.target_amount * 100
+	end
+
 end
