@@ -37,3 +37,26 @@ before_action :authenticate_user!, :except => [:index, :show]
 
 
 end
+
+class Customer
+	def self.create
+		# Amount in pence
+	  @amount = 500
+
+	  customer = Stripe::Customer.create(
+	    :email => 'example@stripe.com',
+	    :card  => params[:stripeToken]
+	  )
+
+	  charge = Stripe::Charge.create(
+	    :customer    => customer.id,
+	    :amount      => @amount,
+	    :description => 'Project donation',
+	    :currency    => 'gbp'
+	  )
+
+	rescue Stripe::CardError => e
+	  flash[:error] = e.message
+	  redirect_to charges_path
+	end
+end
