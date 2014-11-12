@@ -46,3 +46,23 @@ context "User signed in on the homepage" do
 		expect(page).not_to have_link('User sign up')
 	end 
 end
+
+context "University signing up to the systme" do
+
+	before do
+			University.create(name: 'Oxford', description: 'Test description', id: 1)
+	end
+
+
+	it "Should be able to select a university from the drop down menu" do
+		visit '/'
+		click_link 'User sign up'
+		fill_in('Email', with: 'test@oxford.com')
+		fill_in('Password', with: '12345678')
+		fill_in('Password confirmation', with: '12345678')
+		check 'uni-select'
+		select 'Oxford', from: "collection_select"
+		click_button 'Sign up'
+		expect(page).to_have content 'Welcome'
+	end
+end
