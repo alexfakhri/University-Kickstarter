@@ -28,6 +28,7 @@ gem 'spring',        group: :development
 
 gem 'devise'
 gem 'gon'
+gem 'twitter-typeahead-rails'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
