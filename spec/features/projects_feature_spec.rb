@@ -25,5 +25,11 @@ describe 'projects' do
 			expect(page).to have_content('20000')
 			expect(page).not_to have_content('No projects yet')
 		end
+
+		it 'should display the number of days left til end date' do 
+			Project.create(title: 'Sports Hall', description: 'Test description', end_date: '22/11/2014', target_amount: 20000, university_id: 1)
+			visit '/projects'
+			expect(page).to have_content('Days left 10')
+		end
 	end
 end

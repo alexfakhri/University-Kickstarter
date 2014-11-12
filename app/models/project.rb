@@ -26,4 +26,8 @@ class Project < ActiveRecord::Base
 		self.total_donations / self.target_amount * 100
 	end
 
+	def days_left
+		(self.end_date - Date.today).to_i
+	end
+
 end
