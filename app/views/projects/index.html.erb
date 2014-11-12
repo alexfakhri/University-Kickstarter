@@ -8,9 +8,13 @@
     <h2> <%= project.title %> </h2>
     <p> Description: <%= project.description %> </p>	
     <p> Target amount: <%= number_to_currency(project.target_amount, unit: :£) %></p>
-        <p> Donations to date <% project.donations.each do |donation| %>
+        <p> Recent donations <% project.donations.each do |donation| %>
     	<%= number_to_currency(donation.amount, unit: :£) %>
     	<% end %></p>
+    	<p> Total donations so far <%= number_to_currency(project.total_donations, unit: :£) %></p>
+    	<p> Number of backers <%= project.donations.count %></p> 
+    	<p> Number of UNIQUE backers <%= project.unique_donations %></p> 
+    	
     <p> <%= project.end_date.strftime("%d/%m/%Y") %></p>
     <p><%= link_to "Donate to project",  new_project_donation_path(project) %> </p>
   <% end %>
