@@ -24,7 +24,9 @@ before_action :authenticate_user!, :except => [:index, :show]
 
 	def create
 		@university = University.find(params[:university_id])
-		@project = @university.projects.create(project_params)
+		@project = @university.projects.new(project_params)
+		@project.user = current_user
+		@project.save
 		redirect_to universities_path
 	end
 
