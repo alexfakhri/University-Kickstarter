@@ -10,7 +10,7 @@ class DonationsController < ApplicationController
 
 	def create 
 		@project = Project.find(params[:project_id])
-		@donation = @project.donations.new(donation_params)
+		@donation = @project.donations.create(donation_params)
 		@donation.user = current_user
 		redirect_to '/'
 	end
