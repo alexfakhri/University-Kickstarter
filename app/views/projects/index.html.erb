@@ -1,3 +1,5 @@
+
+
 <h1> This page displays all of the projects on the site </h1>
 
 <%= link_to "Add a university", new_university_path %>
@@ -17,7 +19,7 @@
     	<p> Number of backers <%= project.donations.count %></p> 
     	<p> Number of UNIQUE backers <%= project.unique_donations %></p> 
         <p> Days left <%= project.days_left %></p>
-    	
+    	alert gon.universities
     <p> <%= project.end_date.strftime("%d/%m/%Y") %></p>
     <p><%= link_to "Donate to project",  new_project_donation_path(project) %> </p>
   <% end %>
@@ -26,3 +28,4 @@
 <% end %>
 
 
+<
