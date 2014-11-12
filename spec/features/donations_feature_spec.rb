@@ -40,8 +40,10 @@ describe "Donations" do
 			click_link 'Donate to project'
 			fill_in 'Amount', with: '30.00'
 			click_button 'Make Donation'
-			expect(page).to have_content '30.0'
+			expect(page).to have_content '30.00'
 		end
+
+		# it "
 
 	end
 
