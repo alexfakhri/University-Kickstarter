@@ -2,6 +2,7 @@
 
 <%= link_to "Add a university", new_university_path %>
 <%= link_to "Add a project", new_university_project_path(1) %>
+<% collection_select(:university, :name, @universities, :id, :name, {:prompt => true})%>
 
 <% if @projects.any? %>
   <% @projects.each do |project| %>
