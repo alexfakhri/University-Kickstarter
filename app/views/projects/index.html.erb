@@ -4,6 +4,11 @@
 
 <%= collection_select(:university, :name, @universities, :id, :name, {:prompt => true}, id: "uni-dropdown")%>
 
+<div id="the-basics">
+  <input class="typeahead" type="text" placeholder="Enter the university whose projects you want to view">
+  <input type="submit" value="View University's Projects">
+</div>
+
 
 <% if @projects.any? %>
   <% @projects.each do |project| %>
@@ -32,11 +37,11 @@ $(document).ready(function() {
             window.location.replace(url);
     });
 
-    var jsunis = gon.universities
+    var unis = gon.universities
 
-    alert(jsunis)
+    // alert(jsunis)
 
-
+ 
 });
 
 </script>
