@@ -12,6 +12,7 @@
     	<%= number_to_currency(donation.amount, unit: :£) %>
     	<% end %></p>
     	<p> Total donations so far <%= number_to_currency(project.total_donations, unit: :£) %></p>
+        <p> <%= number_to_percentage(project.donation_percentage, precision: 0) %></p>
     	<p> Number of backers <%= project.donations.count %></p> 
     	<p> Number of UNIQUE backers <%= project.unique_donations %></p> 
     	
