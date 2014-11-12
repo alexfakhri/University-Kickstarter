@@ -40,10 +40,34 @@ describe "Donations" do
 			click_link 'Donate to project'
 			fill_in 'Amount', with: '30.00'
 			click_button 'Make Donation'
-			expect(page).to have_content '30.00'
+			expect(page).to have_content 'Recent donations £30.00'
 		end
 
-		# it "
+		it "should keep a running total of the money donated so far" do
+			visit '/projects'
+			click_link 'Donate to project'
+			fill_in 'Amount', with: '30.00'
+			click_button 'Make Donation'
+			click_link 'Donate to project'
+			fill_in 'Amount', with: '30.00'
+			click_button 'Make Donation'
+			expect(page).to have_content 'Total donations so far £60.00'
+
+		end
+
+		it "should display the number of backers" do
+			Donation.create(amount: 40.00, project_id: 1, user_id: 1)
+			visit '/projects'
+			expect(page).to have_content 'Number of UNIQUE backers 1'
+		end
+
+		it "should display the number of backers" do
+			Donation.create(amount: 40.00, project_id: 1, user_id: 1)
+			Donation.create(amount: 30.00, project_id: 1, user_id: 2)
+			visit '/projects'
+			expect(page).to have_content 'Number of UNIQUE backers 2'
+		end
+
 
 	end
 
