@@ -1,5 +1,5 @@
-<%= form_for @donation do |f| %>
+<%= form_for [@project, @donation] do |f| %>
 	<%= f.label :ammount %>
-	<%= f.text_field %>
+	<%= f.text_field :ammount%>
 	<%= f.submit 'Make Donation' %>
 <%  end %>
