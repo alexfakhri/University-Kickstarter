@@ -6,7 +6,7 @@ before_action :authenticate_user!, :except => [:index, :show]
 	def index
 		@projects = Project.all
 		@universities = University.all
-		gon.universities = University.pluck(:name, :id)
+		gon.universities = University.pluck(:name)
 	end
 
 	def new

@@ -4,6 +4,11 @@
 
 <%= collection_select(:university, :name, @universities, :id, :name, {:prompt => true}, id: "uni-dropdown")%>
 
+<div id="the-basics">
+  <input class="typeahead" type="text" placeholder="Enter the university whose projects you want to view">
+  <input type="submit" value="View University's Projects">
+</div>
+
 
 <% if @projects.any? %>
   <% @projects.each do |project| %>
@@ -18,7 +23,6 @@
     	<p> Number of backers <%= project.donations.count %></p> 
     	<p> Number of UNIQUE backers <%= project.unique_donations %></p> 
         <p> Days left <%= project.days_left %></p>
-    	alert gon.universities
     <p> <%= project.end_date.strftime("%d/%m/%Y") %></p>
     <p><%= link_to "Donate to project",  new_project_donation_path(project) %> </p>
   <% end %>
@@ -32,7 +36,14 @@ $(document).ready(function() {
         var url = "/universities/"+ $(this).val()
             window.location.replace(url);
     });
+
+    var unis = gon.universities
+
+    // alert(jsunis)
+
+ 
 });
 
 </script>
+
 
