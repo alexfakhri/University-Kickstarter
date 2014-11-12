@@ -5,6 +5,6 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :donations
-
+  has_many :projects
   belongs_to :university #only for university users
 end
