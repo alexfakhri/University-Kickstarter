@@ -13,6 +13,15 @@ context "User not signed in and on the home page" do
 		expect(page).not_to have_content('User sign out')
 	end
 
+	it "Should not be able to donate to a project" do
+		University.create(name: 'Oxford', description: 'Test description', id: 1)
+		Project.create(title: 'Sports Hall', description: 'Test description', target_amount: 20000, university_id: 1, end_date: "01/01/2015", id: 1)
+      	visit '/projects'
+      	click_link 'Donate to project'
+      	expect(page).to have_content('Log in')
+
+	end
+
 end
 
 context "User signed in on the homepage" do 
