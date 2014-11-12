@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-context "A user, when signed in, should" do 
+describe "Donations" do 
 
 	before do 
 		visit '/projects'
@@ -14,20 +14,35 @@ context "A user, when signed in, should" do
 
 	end
 
-	it "be able to see a 'donate' link" do 
-		visit '/projects'
-		expect(page).to have_content('Test description')
-		expect(page).to have_content('Donate to project')
+	context "A user, when signed in, should" do 
+
+
+		it "be able to see a 'donate' link" do 
+			visit '/projects'
+			expect(page).to have_content('Test description')
+			expect(page).to have_content('Donate to project')
+		end
+
+		it "be able to click 'donate' link and enter donation" do 
+			visit '/projects'
+			click_link 'Donate to project'
+			fill_in 'Amount', with: '30.00'
+			click_button 'Make Donation'
+			expect(current_path).to eq '/'
+		end
+
 	end
 
-	it "be able to click 'donate' link and enter donation" do 
-		visit '/projects'
-		click_link 'Donate to project'
-		fill_in 'Amount', with: '30.00'
-		click_button 'Make Donation'
-		expect(current_path).to eq '/'
+	context "When a donation is made" do
+
+		it "the project should update with the donations made" do
+			visit '/projects'
+			click_link 'Donate to project'
+			fill_in 'Amount', with: '30.00'
+			click_button 'Make Donation'
+			expect(page).to have_content '30.0'
+		end
+
 	end
-
-
 
 end
