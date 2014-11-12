@@ -2,6 +2,7 @@ class ProjectsController < ApplicationController
 
 	def index
 		@projects = Project.all
+		@universities = University.all
 	end
 
 	def new
