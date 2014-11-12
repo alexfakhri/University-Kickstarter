@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   end
 
   resources :projects, only: [:index]
+    
 
   # Example resource route with options:
   #   resources :products do
