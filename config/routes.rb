@@ -21,6 +21,9 @@ Rails.application.routes.draw do
     end
   end
 
+
+  resources :charges
+  
   resources :projects, only: [:index]
     
 
