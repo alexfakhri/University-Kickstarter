@@ -1,8 +1,7 @@
 <h1> This page displays all of the projects on the site </h1>
 
-<%= link_to "Add a university", new_university_path %>
-<%= link_to "Add a project", new_university_project_path(1) %>
-<% collection_select(:university, :name, @universities, :id, :name, {:prompt => true})%>
+<%= collection_select(:university, :name, @universities, :id, :name, {:prompt => true}, id: "uni-dropdown")%>
+
 
 <% if @projects.any? %>
   <% @projects.each do |project| %>
@@ -25,4 +24,12 @@
   No projects yet
 <% end %>
 
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#uni-dropdown").bind('change', function() {
+        var url = "/universities/"+ $(this).val()
+            window.location.replace(url);
+    });
+});
 
+</script>
