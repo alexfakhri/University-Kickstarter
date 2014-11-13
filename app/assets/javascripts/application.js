@@ -12,9 +12,13 @@
 //
 //= require jquery
 //= require jquery_ujs
+<<<<<<< HEAD
 //= require jquery-ui
 //= require handlebars
 //= require twitter/typeahead
+=======
+//= require twitter/bootstrap
+>>>>>>> Universities
 //= require turbolinks
 //= require_tree 
 
