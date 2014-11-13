@@ -5,15 +5,8 @@ before_action :authenticate_user!, :except => [:index, :show]
 	def index
 
 		@universities = University.all
+		@projects = Project.all
 
-		respond_to do |format|
-			format.html do
-				@projects = Project.all
-				gon.universities = University.pluck(:name, :id)
-			end
-
-			format.json { render json: @universities }
-		end
 	end
 
 	def new
