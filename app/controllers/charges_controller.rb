@@ -1,12 +1,15 @@
 class ChargesController < ApplicationController
 
+
+
 	def new
+
 	end
 
 	def create
 	  # Amount in pence
-	  @amount = 500
-	  
+	  @amount = session[:donation_amount].dup
+	  session[:donation_amount]=0
 
 	  customer = Stripe::Customer.create(
 	    :email => current_user.email,

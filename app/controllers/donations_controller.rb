@@ -15,7 +15,8 @@ before_action :authenticate_user!, :except => [:index]
 		@project = Project.find(params[:project_id])
 		@donation = @project.donations.create(donation_params)
 		@donation.user = current_user
-		redirect_to '/'
+		session[:donation_amount]=@donation.amount
+		redirect_to '/charges/new'
 	end
 
 	def donation_params
