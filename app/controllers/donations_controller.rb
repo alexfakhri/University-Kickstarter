@@ -19,7 +19,7 @@ before_action :authenticate_user!, :except => [:index]
 				@donation = @project.donations.new(donation_params)
 				@donation.user = current_user
 				session[:donation_amount]= @donation.amount
-				redirect_to '/charges/new' 
+				redirect_to '/projects' 
 			else
 				flash[:notice] = "This donation did not work"
 				render 'new'
