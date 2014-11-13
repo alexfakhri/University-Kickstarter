@@ -6,10 +6,14 @@
   </article>
 <%= params.inspect %>
 
+<script>
+ 
+</script>
+
   <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
           data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
           data-description="Donate to this project"
-          data-currency="gbp">
+          data-currency="gbp" data-amount="0.00">
           </script>
 
 <% end %>
