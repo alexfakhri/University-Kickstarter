@@ -5,7 +5,9 @@ class Project < ActiveRecord::Base
 	validates :title, length: {minimum: 1} 
 	validates :description, length: {minimum: 1}
 
-	has_attached_file :image, :styles => { :medium => "500x500#", :thumb => "342x200#" }, :default_url => "/images/:style/missing.png"
+
+	has_attached_file :image, :styles => { :large => "825x400^", :medium => "500x500>", :thumb => "342x200>" }, :default_url => "/images/:style/missing.png"
+
   validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 
 	has_many :donations
