@@ -17,7 +17,7 @@
         <img data-src="image_tag project.image.url(:thumb)">
         <%= image_tag project.image.url(:thumb) %>
         <div class="caption">
-							<h3> Title: <%= link_to project.title, project_path(project) %></h3>
+							<h3><%= link_to project.title, project_path(project) %></h3>
 					    <p> Description: <%= project.description %> </p>	
 					    <p> Fundraising target: £<%= project.target_amount %></p>
 					    <p> Campaign end date: <%= project.end_date.strftime("%d/%m/%Y") %></p>
