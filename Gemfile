@@ -51,4 +51,6 @@ gem 'paperclip'
 
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 
+gem "twitter-bootstrap-rails"
+
 
