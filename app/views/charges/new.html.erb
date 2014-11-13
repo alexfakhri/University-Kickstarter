@@ -1,15 +1,15 @@
 <%= form_tag charges_path do %>
   <article>
     <label class="amount">
-      <span>Amount:<%= project.donation </span>
+      <span>Amount: <%= number_to_currency(session[:donation_amount], unit: :£) %></span>
     </label>
   </article>
+<%= params.inspect %>
 
   <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
           data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
           data-description="Donate to this project"
-          data-currency="gbp"
-          data-amount="500"
-          data-lable="Donate"></script>
+          data-currency="gbp">
+          </script>
 
 <% end %>
