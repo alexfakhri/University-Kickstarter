@@ -4,10 +4,8 @@
 
 <%= collection_select(:university, :name, @universities, :id, :name, {:prompt => true}, id: "uni-dropdown")%>
 
-<div id="the-basics">
-  <input class="typeahead" type="text" placeholder="Enter the university whose projects you want to view">
-  <input type="submit" value="View University's Projects">
-</div>
+<%= text_field_tag :university, nil, placeholder: "Enter university name...", class: "typeahead" %> 
+
 
 
 <% if @projects.any? %>
@@ -31,19 +29,81 @@
 <% end %>
 
 <script type="text/javascript">
+
+    var universities = <%= @universities.to_json.html_safe %>
 $(document).ready(function() {
-    $("#uni-dropdown").bind('change', function() {
-        var url = "/universities/"+ $(this).val()
-            window.location.replace(url);
+    // $("#uni-dropdown").bind('change', function() {
+    //     var url = "/universities/"+ $(this).val()
+    //         window.location.replace(url);
+    // });
+
+    // var universities = gon.universities
+
+    //  $("h1").on('click', function() {
+    //     alert(universities)
+    //  });
+    
+
+    // var substringMatcher = function(strs) {
+    //     return function findMatches(q, cb) {
+    //     var matches, substrRegex;
+     
+    //     // an array that will be populated with substring matches
+    //     matches = [];
+     
+    //     // regex used to determine if a string contains the substring `q`
+    //     substrRegex = new RegExp(q, 'i');
+     
+    //     // iterate through the pool of strings and for any string that
+    //     // contains the substring `q`, add it to the `matches` array
+    //     $.each(strs, function(i, str) {
+    //       if (substrRegex.test(str)) {
+    //         // the typeahead jQuery plugin expects suggestions to a
+    //         // JavaScript object, refer to typeahead docs for more info
+    //         matches.push({ value: str });
+    //       }
+    //     });
+     
+    //     cb(matches);
+    //   };
+    // };
+
+    var findMatches = function(query, cb){
+        console.log(universities);
+        cb(universities);
+    }
+
+    // var universities = new Bloodhound({
+    //     remote: {
+    //         url: '/projects',
+    //     }
+    // });
+
+    // universities.initialize();
+
+
+    $('.typeahead').typeahead({
+      hint: true,
+      highlight: true,
+      minLength: 1
+    },
+    {
+      name: 'universities',
+      displayKey: 'name',
+      source: findMatches,
+      templates: {
+        suggestion: Handlebars.compile('<p><a href="/universities/{{id}}">{{name}}</a></p>')
+      }
+
     });
 
-    var unis = gon.universities
+    // $(".typeahead").bind('change', function() {
+    //     var url = "/universities/"+ $(this).val()
+    //         window.location.replace(url);
+    // });
 
-    // alert(jsunis)
 
- 
 });
-
 </script>
 
 
