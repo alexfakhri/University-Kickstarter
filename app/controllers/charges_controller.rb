@@ -8,8 +8,10 @@ class ChargesController < ApplicationController
 
 	def create
 	  # Amount in pence
+	  params.inspect
 	  @amount = session[:donation_amount].dup
-	  session[:donation_amount]=0
+	  session[:donation_amount] = 0
+	  p session
 
 	  customer = Stripe::Customer.create(
 	    :email => current_user.email,
