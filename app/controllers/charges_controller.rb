@@ -7,18 +7,17 @@ class ChargesController < ApplicationController
 	end
 
 	def create
-	  # Amount in pence
-	  @amount = session[:donation_amount].dup
-	  session[:donation_amount]=0
+	  amount = (params[:project][:amount].to_f*100).to_i
+	  
 
 	  customer = Stripe::Customer.create(
 	    :email => current_user.email,
-	    :card  => params[:stripeToken]
+	    :card  => params[:project][:token][:id]
 	  )
 
 	  charge = Stripe::Charge.create(
 	    :customer    => customer.id,
-	    :amount      => @amount,
+	    :amount      => amount,
 	    :description => 'Project donation',
 	    :currency    => 'gbp'
 	  )
