@@ -10,9 +10,11 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require twitter/typeahead
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
+//= require handlebars
+//= require twitter/typeahead
 //= require turbolinks
 //= require_tree 
 
