@@ -9,26 +9,32 @@
   <input type="submit" value="View University's Projects">
 </div>
 
-
-<% if @projects.any? %>
-  <% @projects.each do |project| %>
-    <h2> <%= project.title %> </h2>
-    <p> Description: <%= project.description %> </p>	
-    <p> Target amount: <%= number_to_currency(project.target_amount, unit: :£) %></p>
-        <p> Recent donations <% project.donations.each do |donation| %>
-    	<%= number_to_currency(donation.amount, unit: :£) %>
-    	<% end %></p>
-    	<p> Total donations so far <%= number_to_currency(project.total_donations, unit: :£) %></p>
-        <p> <%= number_to_percentage(project.donation_percentage, precision: 0) %></p>
-    	<p> Number of backers <%= project.donations.count %></p> 
-    	<p> Number of UNIQUE backers <%= project.unique_donations %></p> 
-        <p> Days left <%= project.days_left %></p>
-    <p> <%= project.end_date.strftime("%d/%m/%Y") %></p>
-    <p><%= link_to "Donate to project",  new_project_donation_path(project) %> </p>
+    <div class="container">
+      <div class="row">
+      <% if @projects.any? %>
+    <% @projects.each do |project| %>
+        <div class="col-md-4">
+         <h2> <%= project.title %> </h2>
+      <p> Description: <%= project.description %> </p>  
+      <p> Target amount: <%= number_to_currency(project.target_amount, unit: :£) %></p>
+          <p> Recent donations <% project.donations.each do |donation| %>
+        <%= number_to_currency(donation.amount, unit: :£) %>
+        <% end %></p>
+        <p> Total donations so far <%= number_to_currency(project.total_donations, unit: :£) %></p>
+          <p> <%= number_to_percentage(project.donation_percentage, precision: 0) %></p>
+        <p> Number of backers <%= project.donations.count %></p> 
+        <p> Number of UNIQUE backers <%= project.unique_donations %></p> 
+          <p> Days left <%= project.days_left %></p>
+      <p> <%= project.end_date.strftime("%d/%m/%Y") %></p>
+      <p><%= link_to "Donate to project",  new_project_donation_path(project) %> </p>
+    <% end %>
+  <% else %>
+    No projects yet
+    </div>
   <% end %>
-<% else %>
-  No projects yet
-<% end %>
+      </div>
+
+
 
 <script type="text/javascript">
 $(document).ready(function() {
