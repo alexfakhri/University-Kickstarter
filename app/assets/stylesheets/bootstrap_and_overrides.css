@@ -32,3 +32,21 @@
   margin-bottom: 15px;
   padding: 7px 9px;
 }
+
+.container-fluid {
+  /*background-color: navy;*/
+}
+
+.span8 {
+  /*background-color: orange;*/
+  min-width: 75%;
+  display: inline;
+  float: left;
+}
+
+.span4 {
+  /*background-color: red;*/
+  min-width: 25%;
+  display: inline;
+  float: left;
+}
