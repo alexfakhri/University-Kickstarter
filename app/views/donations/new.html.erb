@@ -1,5 +1,53 @@
+<p class="error hidden">
+   There was an error: <span class="error"></span>
+</p>
+
 <%= form_for [@project, @donation] do |f| %>
 	<%= f.label :amount %>
 	<%= f.text_field :amount%>
 	<%= f.submit 'Make Donation' %>
 <%  end %>
+
+<script src="https://checkout.stripe.com/checkout.js"></script>
+
+<script type="text/javascript">
+	$( document ).ready(function(){
+
+		var form = $('#new_donation');
+		var project_id = <%= @project.id %>;
+		var amount;
+
+		var handler = StripeCheckout.configure({
+	    key: '<%= Rails.configuration.stripe[:publishable_key] %>',
+	    token: function(token){
+	    	// Post the token, and the amount to the create method
+	    	$.ajax({
+	    		type: "POST",
+	    		url: "/charges",
+	    		data: {
+	    			amount: amount, 
+	    			project_id: project_id, 
+	    			token: token
+	    		}
+
+	    		// success:(data) ->
+	    		// 	alert data.id
+	    		// 	return false
+	    		// error:(data) ->
+	    		// 	return false
+	    	})
+	    }
+		});
+
+		form.on('submit', function(e) {
+			e.preventDefault();
+			
+			amount = $('#donation_amount').val();
+
+			handler.open({
+				amount: amount * 100
+			});
+		});
+	});
+
+</script>

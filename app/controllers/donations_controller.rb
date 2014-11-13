@@ -13,10 +13,17 @@ before_action :authenticate_user!, :except => [:index]
 
 	def create 
 		@project = Project.find(params[:project_id])
-		@donation = @project.donations.create(donation_params)
+		@donation = @project.donations.new(donation_params)
 		@donation.user = current_user
-		session[:donation_amount]=@donation.amount
-		redirect_to '/charges/new'
+			if @donation 
+				@donation = @project.donations.new(donation_params)
+				@donation.user = current_user
+				session[:donation_amount]= @donation.amount
+				redirect_to '/charges/new' 
+			else
+				flash[:notice] = "This donation did not work"
+				render 'new'
+			end
 	end
 
 	def donation_params
