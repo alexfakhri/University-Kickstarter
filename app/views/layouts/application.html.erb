@@ -12,15 +12,26 @@
 </head>
 <body>
 
-<% if user_signed_in? %>
-	<%= link_to "Sign out", destroy_user_session_path, method: :delete %>
-<% else %>
-	<%= link_to "User sign in", new_user_session_path %>
-	<%= link_to "User sign up", new_user_registration_path %>
-<% end %>
 
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
+<div class="container">
+				<div class="header">
+				  <nav>
+				    <ul class="nav nav-pills pull-right">
+				      <% if user_signed_in? %>
+								<li role="presentation" class="active"><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+							<% else %>
+						  	<li role="presentation" class="active"><%= link_to "User sign in", new_user_session_path %></li>
+						  	<li role="presentation" class="active"><%= link_to "User sign up", new_user_registration_path %></li>
+							<% end %>
+				    </ul>
+				  </nav>
+				  <h3 class="text-muted">Fundr/Mental</h3>
+				</div>
+				</br>
+				
+
+<%= bootstrap_flash %>
+
 
 <!-- OR AS WE USED IN PREVIOUS FILES... eg flash.each do |name, msg | \n 
 content_tag :div, msg, class: name \n
