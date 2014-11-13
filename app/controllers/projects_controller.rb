@@ -2,11 +2,18 @@ class ProjectsController < ApplicationController
 
 before_action :authenticate_user!, :except => [:index, :show]
 
-
 	def index
-		@projects = Project.all
+
 		@universities = University.all
-		gon.universities = University.pluck(:name)
+
+		respond_to do |format|
+			format.html do
+				@projects = Project.all
+				gon.universities = University.pluck(:name, :id)
+			end
+
+			format.json { render json: @universities }
+		end
 	end
 
 	def new

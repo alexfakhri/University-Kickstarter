@@ -25,6 +25,10 @@ Rails.application.routes.draw do
   resources :charges
   
   resources :projects, only: [:index]
+
+  resources :universities do
+    get :autocomplete_university_name, :on => :collection
+  end
     
 
   # Example resource route with options:
