@@ -14,7 +14,7 @@
 	$( document ).ready(function(){
 
 		var form = $('#new_donation');
-		var project_id = <%= @project.id %>;
+		var project_id = 5;
 		var amount;
 
 		var handler = StripeCheckout.configure({
@@ -24,24 +24,19 @@
 	    	$.ajax({
 	    		type: "POST",
 	    		url: "/charges",
-	    		data: {
+	    		data: { project: {
 	    			amount: amount, 
 	    			project_id: project_id, 
-	    			token: token
+	    			token: token }
 	    		}
-
-	    		// success:(data) ->
-	    		// 	alert data.id
-	    		// 	return false
-	    		// error:(data) ->
-	    		// 	return false
+	    			
 	    	})
 	    }
 		});
 
 		form.on('submit', function(e) {
 			e.preventDefault();
-			
+			console.log("shit happening")
 			amount = $('#donation_amount').val();
 
 			handler.open({
@@ -49,5 +44,4 @@
 			});
 		});
 	});
-
 </script>
