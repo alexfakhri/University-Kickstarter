@@ -5,7 +5,7 @@
 
 <%= form_for [@project, @donation] do |f|%>
 	<%= f.label :amount %>
-	<%= f.text_field :amount%>
+	<%= f.text_field :amount, autofocus: true, value: "", placeholder: 0.00 %>
 	<%= f.submit 'Make Donation' %>
 <%  end %>
 
@@ -15,7 +15,7 @@
 	$( document ).ready(function(){
 
 		var form = $('#new_donation');
-		var project_id = 5;
+		var project_id = 1;
 		var amount;
 
 		var handler = StripeCheckout.configure({
@@ -29,8 +29,17 @@
 	    			amount: amount, 
 	    			project_id: project_id, 
 	    			token: token }
-	    		}
-	    			
+	    		},
+				success: function(data) {
+				
+			
+					// console.log(data)
+					// console.log("success")
+					// window.location.replace("/projects/" + project_id + "/donations?amount=" + amount)  
+  				 },
+   				error:function(status, error) {
+					console.log("error")
+   				},		
 	    	})
 	    }
 		});
@@ -45,4 +54,30 @@
 			});
 		});
 	});
+
+	function post(path, params, method) {
+	    method = method || "post"; // Set method to post by default if not specified.
+
+	    // The rest of this code assumes you are not using a library.
+	    // It can be made less wordy if you use one.
+	    var form = document.createElement("form");
+	    form.setAttribute("method", method);
+	    form.setAttribute("action", path);
+
+	    for(var key in params) {
+	        if(params.hasOwnProperty(key)) {
+	            var hiddenField = document.createElement("input");
+	            hiddenField.setAttribute("type", "hidden");
+	            hiddenField.setAttribute("amount", key);
+	            hiddenField.setAttribute("value", params[key]);
+
+	            form.appendChild(hiddenField);
+	         }
+	    }
+
+	    document.body.appendChild(form);
+	    form.submit();
+	}
 </script>
+
+
