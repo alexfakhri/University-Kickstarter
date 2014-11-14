@@ -27,7 +27,7 @@
     <%= f.check_box :university_user, autocomplete: "off", id: "uni-select"%>
   </div>
 
-  <div class="field" id="uni-field">
+  <div class="dropdown" id="uni-field">
     <%= f.label :university_id %><br />
     <%= f.collection_select :university_id, University.all, :id, :name %>
   </div>

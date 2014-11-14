@@ -13,11 +13,19 @@
 //= require jquery
 //= require jquery_ujs
 
+
 //= require jquery-ui
 //= require handlebars
 //= require twitter/typeahead
 
 //= require twitter/bootstrap
+
+
+//= require jquery-ui
+//= require handlebars
+//= require twitter/typeahead
+//= require twitter/bootstrap
+//= require turbolinks
 
 //= require_tree 
 
