@@ -19,6 +19,17 @@ class UniversitiesController < ApplicationController
     redirect_to '/universities'
   end
 
+  def edit
+  	@university = University.find(params[:id])
+  end
+
+  def update
+  	@university = University.find(params[:id])
+  	@university.update(project_params)
+
+  	redirect_to '/'
+  end
+
    def project_params
     params.require(:university).permit(:name, :description, :image)
   end
