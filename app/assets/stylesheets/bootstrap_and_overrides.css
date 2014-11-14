@@ -64,3 +64,21 @@
 .progress {
   margin-bottom: 10px;
 }
+
+#homepagejumbotron {
+    background-image: url(http://www.sbs.ox.ac.uk/sites/default/files/Skoll_Centre/Images/background-skoll2.jpg);
+    background-size: cover;
+}
+
+#homepagejumbotron > img {
+  width:100%;
+}
+
+#homepagejumbotron h1 {
+  color: white;
+  text-shadow: 2px 2px 8px gray;
+}
+
+#homepagejumbotron h3 {
+  color: white;
+}
