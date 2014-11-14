@@ -82,3 +82,8 @@
 #homepagejumbotron h3 {
   color: white;
 }
+
+#thumbnailimage {
+  height: 150px;
+  background-size: cover;
+}
