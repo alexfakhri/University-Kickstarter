@@ -20,7 +20,6 @@
 		var handler = StripeCheckout.configure({
 	    key: '<%= Rails.configuration.stripe[:publishable_key] %>',
 	    token: function(token){
-	    	// Post the token, and the amount to the create method
 	    	$.ajax({
 	    		type: "POST",
 	    		beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
@@ -30,11 +29,10 @@
 	    			token: token }
 	    		},
 				success: function(data) {
-					console.log("success")
+					// console.log("success")
   				 },
    				error:function(status, error) {
-					console.log("error")
-					// console.log(params)
+					// console.log("error")
    				},		
 	    	})
 	    }
@@ -51,29 +49,6 @@
 		});
 	});
 
-	// function post(path, params, method) {
-	//     method = method || "post"; // Set method to post by default if not specified.
-
-	//     // The rest of this code assumes you are not using a library.
-	//     // It can be made less wordy if you use one.
-	//     var form = document.createElement("form");
-	//     form.setAttribute("method", method);
-	//     form.setAttribute("action", path);
-
-	//     for(var key in params) {
-	//         if(params.hasOwnProperty(key)) {
-	//             var hiddenField = document.createElement("input");
-	//             hiddenField.setAttribute("type", "hidden");
-	//             hiddenField.setAttribute("amount", key);
-	//             hiddenField.setAttribute("value", params[key]);
-
-	//             form.appendChild(hiddenField);
-	//          }
-	//     }
-
-	//     document.body.appendChild(form);
-	//     form.submit();
-	// }
 </script>
 
 

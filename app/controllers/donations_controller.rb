@@ -14,8 +14,6 @@ before_action :authenticate_user!, :except => [:index]
 
   def create 
 
-   
-    # redirect_to '/projects' 
     customer = Stripe::Customer.create(
       :email => current_user.email,
       :card  => params[:donation][:token][:id]
@@ -33,7 +31,6 @@ before_action :authenticate_user!, :except => [:index]
     @donation.user = current_user
     @donation.save
     
-    # render json: {message: "Donation successful"}
     render js: "window.location.pathname='#{project_path(@project)}'"
 
     rescue Stripe::CardError => e
@@ -41,20 +38,6 @@ before_action :authenticate_user!, :except => [:index]
       p e.inspect
 
   end
-
-
-
-#     create charge
-#     if successful
-#       create donation
-#     end
-
- 
-#       else
-#         flash[:notice] = "This donation did not work"
-#         render 'new'
-#       end
-#   end
 
   def donation_params
     params.require(:donation).permit(:amount)
