@@ -14,7 +14,7 @@
     <% @projects.each do |project| %>
     <div class="col-sm-6 col-md-4">
       <div class="thumbnail">
-        <%= image_tag project.image.url(:large) %>
+        <div id="thumbnailimage" style="background-image: url('<%=project.image.url(:large)%>')"></div>
         <div class="caption">
           <h3> <%= link_to project.title, project_path(project) %> </h3>
           <p><%= truncate(project.description, :length => 200) %></p>
