@@ -11,32 +11,40 @@
 
 <h3>Live projects</h3>
 
-   <div class="container">
-      <div class="row">
-					<% if @university.projects.any? %>
-					<% @university.projects.each do |project|%>
-					<div class="col-sm-6 col-md-4">
-        <div class="thumbnail">
-        <img data-src="image_tag project.image.url(:thumb)">
-        <%= image_tag project.image.url(:thumb) %>
-        <div class="caption">
-							<h3><%= link_to project.title, project_path(project) %></h3>
-					    <p> Description: <%= project.description %> </p>	
-					    <p> Fundraising target: £<%= project.target_amount %></p>
-					    <p> Campaign end date: <%= project.end_date.strftime("%d/%m/%Y") %></p>
-					    <div class="progress">
-  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= number_to_percentage(project.donation_percentage, precision: 0) %>">
-    <%= number_to_percentage(project.donation_percentage, precision: 0) %>
-  </div>
-</div>
-      <p><%= link_to "Donate to project",  new_project_donation_path(project), class: "btn btn-success" %>  </p>
-      </div>
-       </div>
-       </div>
 
+<div class="container">
+  <div class="row">
+    <% if @university.projects.any? %>
+    <% @university.projects.each do |project| %>
+    <div class="col-sm-6 col-md-4">
+      <div class="thumbnail">
+        <div id="thumbnailimage" style="background-image: url('<%=project.image.url(:large)%>')"></div>
+        <div class="caption">
+          <h3> <%= link_to project.title, project_path(project) %> </h3>
+          <p><%= truncate(project.description, :length => 200) %></p>
+          <p>Fundraising ends:<strong><%= project.end_date.strftime("%d/%m/%Y") %></strong></p>
+          <p class><h3><%= number_to_currency(project.target_amount, unit: :£) %> target</h3></p>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= number_to_percentage(project.donation_percentage, precision: 0) %>">
+              <%= number_to_percentage(project.donation_percentage, precision: 0) %>
+            </div>
+          </div>
+          <section>
+            <div class="col-md-4"><h4><%= number_to_currency(project.total_donations, unit: :£) %></h4>Donated</div>
+            <div class="col-md-4"><h4><%= project.unique_donations %></h4>Backers</div>
+            <div class="col-md-4"><h4><%= project.days_left %></h4>Days left</div>
+          </section>
+          </br>
+          <div class="text-center donationbuttons">
+          <%= link_to "View Project", project_path(project), class: "btn btn-primary" %>
+          <%= link_to "Donate to project",  new_project_donation_path(project), class: "btn btn-success" %>
+          </div>
+        </div>
+      </div>
+    </div>
     <% end %>
-  <% else %>
+    <% else %>
     No projects yet
-  <% end %>
+    <% end %>
   </div>
 </div>
