@@ -50,3 +50,7 @@
   display: inline;
   float: left;
 }
+
+.container-fluid {
+  margin-bottom: 10px;
+}
