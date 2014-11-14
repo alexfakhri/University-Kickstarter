@@ -38,6 +38,7 @@ before_action :authenticate_user!, :except => [:index]
 
     rescue Stripe::CardError => e
       render status: 402, json: {message: e.message}
+      p e.inspect
 
   end
 
