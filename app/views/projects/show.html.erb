@@ -21,7 +21,7 @@
 				<h1>54</h1>
 				<h3>days left</h3>
 				<h5>Project ends on: <%= @project.end_date.strftime("%d/%m/%Y") %></h5>
-				<%= button_to "Donate", new_project_donation_path(@project), :class => "btn btn-success btn-lg", :method => :get %>
+				<%= link_to "Donate", new_project_donation_path(@project), :class => "btn btn-success btn-lg", :method => :get %>
 			</div>
 		</div>
 	</div>
