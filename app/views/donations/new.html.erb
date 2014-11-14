@@ -5,7 +5,7 @@
 
 <%= form_for [@project, @donation] do |f|%>
 	<%= f.label :amount %>
-	<%= f.text_field :amount%>
+	<%= f.text_field :amount, autofocus: true, value: "", placeholder: 0.00 %>
 	<%= f.submit 'Make Donation' %>
 <%  end %>
 
@@ -14,8 +14,7 @@
 <script type="text/javascript">
 	$( document ).ready(function(){
 
-		var form = $('#new_donation');
-		var project_id = 5;
+		var $form = $('#new_donation');
 		var amount;
 
 		var handler = StripeCheckout.configure({
@@ -24,18 +23,22 @@
 	    	// Post the token, and the amount to the create method
 	    	$.ajax({
 	    		type: "POST",
-	    		url: "/charges",
-	    		data: { project: {
-	    			amount: amount, 
-	    			project_id: project_id, 
+	    		url: $form.attr("action"), 
+	    		data: { donation: {
+	    			amount: amount,  
 	    			token: token }
-	    		}
-	    			
+	    		},
+				success: function(data) {
+					console.log("success")
+  				 },
+   				error:function(status, error) {
+					console.log("error")
+   				},		
 	    	})
 	    }
 		});
 
-		form.on('submit', function(e) {
+		$form.on('submit', function(e) {
 			e.preventDefault();
 			console.log("shit happening")
 			amount = $('#donation_amount').val();
@@ -45,4 +48,30 @@
 			});
 		});
 	});
+
+	function post(path, params, method) {
+	    method = method || "post"; // Set method to post by default if not specified.
+
+	    // The rest of this code assumes you are not using a library.
+	    // It can be made less wordy if you use one.
+	    var form = document.createElement("form");
+	    form.setAttribute("method", method);
+	    form.setAttribute("action", path);
+
+	    for(var key in params) {
+	        if(params.hasOwnProperty(key)) {
+	            var hiddenField = document.createElement("input");
+	            hiddenField.setAttribute("type", "hidden");
+	            hiddenField.setAttribute("amount", key);
+	            hiddenField.setAttribute("value", params[key]);
+
+	            form.appendChild(hiddenField);
+	         }
+	    }
+
+	    document.body.appendChild(form);
+	    form.submit();
+	}
 </script>
+
+
