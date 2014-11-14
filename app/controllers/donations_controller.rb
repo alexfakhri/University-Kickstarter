@@ -3,38 +3,60 @@ class DonationsController < ApplicationController
 before_action :authenticate_user!, :except => [:index]
 
 
-	def index
+  def index
 
-	end
+  end
 
-	def new
-		@project = Project.find(params[:project_id])
-		@donation = Donation.new
-	end
+  def new
+    @project = Project.find(params[:project_id])
+    @donation = Donation.new
+  end
 
-	def create 
-		# redirect_to '/projects' 
-		create charge
-		if successful
-			create donation
-		end
+  def create 
 
-		@project = Project.find(params[:project_id])
-		@donation = @project.donations.new(donation_params)
-		@donation.user = current_user
-			if @donation 
-				@donation = @project.donations.new(donation_params)
-				@donation.user = current_user
-				params[:amount]= @donation.amount
-				redirect_to '/projects' 
-			else
-				flash[:notice] = "This donation did not work"
-				render 'new'
-			end
-	end
+   
+    # redirect_to '/projects' 
+    customer = Stripe::Customer.create(
+      :email => current_user.email,
+      :card  => params[:donation][:token][:id]
+    )
 
-	def donation_params
-		params.require(:donation).permit(:amount)
-	end
+    charge = Stripe::Charge.create(
+      :customer    => customer.id,
+      :amount      => params[:donation][:amount],
+      :description => 'Project donation',
+      :currency    => 'gbp'
+    )
+
+    @project = Project.find(params[:project_id])
+    @donation = @project.donations.new(donation_params)
+    @donation.user = current_user
+    @donation.save
+    
+    # render json: {message: "Donation successful"}
+    render js: "window.location.pathname='#{project_path(@project)}'"
+
+    rescue Stripe::CardError => e
+      render status: 402, json: {message: e.message}
+
+  end
+
+
+
+#     create charge
+#     if successful
+#       create donation
+#     end
+
+ 
+#       else
+#         flash[:notice] = "This donation did not work"
+#         render 'new'
+#       end
+#   end
+
+  def donation_params
+    params.require(:donation).permit(:amount)
+  end
 
 end
