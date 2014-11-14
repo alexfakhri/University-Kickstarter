@@ -5,7 +5,7 @@
 
 <%= form_for [@project, @donation] do |f|%>
 	<%= f.label :amount %>
-	<%= f.text_field :amount, autofocus: true, value: "", placeholder: 0.00 %>
+	<%= f.text_field :amount %>
 	<%= f.submit 'Make Donation' %>
 <%  end %>
 
@@ -23,6 +23,7 @@
 	    	// Post the token, and the amount to the create method
 	    	$.ajax({
 	    		type: "POST",
+	    		beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
 	    		url: $form.attr("action"), 
 	    		data: { donation: {
 	    			amount: amount,  
@@ -33,6 +34,7 @@
   				 },
    				error:function(status, error) {
 					console.log("error")
+					// console.log(params)
    				},		
 	    	})
 	    }
@@ -49,29 +51,29 @@
 		});
 	});
 
-	function post(path, params, method) {
-	    method = method || "post"; // Set method to post by default if not specified.
+	// function post(path, params, method) {
+	//     method = method || "post"; // Set method to post by default if not specified.
 
-	    // The rest of this code assumes you are not using a library.
-	    // It can be made less wordy if you use one.
-	    var form = document.createElement("form");
-	    form.setAttribute("method", method);
-	    form.setAttribute("action", path);
+	//     // The rest of this code assumes you are not using a library.
+	//     // It can be made less wordy if you use one.
+	//     var form = document.createElement("form");
+	//     form.setAttribute("method", method);
+	//     form.setAttribute("action", path);
 
-	    for(var key in params) {
-	        if(params.hasOwnProperty(key)) {
-	            var hiddenField = document.createElement("input");
-	            hiddenField.setAttribute("type", "hidden");
-	            hiddenField.setAttribute("amount", key);
-	            hiddenField.setAttribute("value", params[key]);
+	//     for(var key in params) {
+	//         if(params.hasOwnProperty(key)) {
+	//             var hiddenField = document.createElement("input");
+	//             hiddenField.setAttribute("type", "hidden");
+	//             hiddenField.setAttribute("amount", key);
+	//             hiddenField.setAttribute("value", params[key]);
 
-	            form.appendChild(hiddenField);
-	         }
-	    }
+	//             form.appendChild(hiddenField);
+	//          }
+	//     }
 
-	    document.body.appendChild(form);
-	    form.submit();
-	}
+	//     document.body.appendChild(form);
+	//     form.submit();
+	// }
 </script>
 
 
