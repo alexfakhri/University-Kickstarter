@@ -13,8 +13,7 @@
 <script type="text/javascript">
 	$( document ).ready(function(){
 
-		var form = $('#new_donation');
-		var project_id = 1;
+		var $form = $('#new_donation');
 		var amount;
 
 		var handler = StripeCheckout.configure({
@@ -23,18 +22,13 @@
 	    	// Post the token, and the amount to the create method
 	    	$.ajax({
 	    		type: "POST",
-	    		url: "/charges",
-	    		data: { project: {
-	    			amount: amount, 
-	    			project_id: project_id, 
+	    		url: $form.attr("action"), 
+	    		data: { donation: {
+	    			amount: amount,  
 	    			token: token }
 	    		},
 				success: function(data) {
-				
-			
-					// console.log(data)
-					// console.log("success")
-					// window.location.replace("/projects/" + project_id + "/donations?amount=" + amount)  
+					console.log("success")
   				 },
    				error:function(status, error) {
 					console.log("error")
@@ -43,7 +37,7 @@
 	    }
 		});
 
-		form.on('submit', function(e) {
+		$form.on('submit', function(e) {
 			e.preventDefault();
 			console.log("shit happening")
 			amount = $('#donation_amount').val();
