@@ -1,10 +1,13 @@
 
-
+<div class="jumbotron">
 <h2> <%= @university.name %> </h2>
-<p> <%= @university.description %> </p>	
+<div class="row">
+  <div class="col-xs-6 col-md-4"><%= image_tag @university.image.url(:medium) %></div>
+  <div class="col-xs-12 col-sm-6 col-md-8"><p> <%= @university.description %> </p>  </div> 
+  <%= link_to "Add a project", new_university_project_path(@university), class: "btn btn-success" %> 
+</div>
+</div>
 
-
-<%= link_to "Add a project", new_university_project_path(@university), class: "btn btn-success" %> 
 
 <h3>Live projects</h3>
 

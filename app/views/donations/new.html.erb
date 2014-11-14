@@ -1,10 +1,11 @@
+
 <p class="error hidden">
    There was an error: <span class="error"></span>
 </p>
 
-<%= form_for [@project, @donation] do |f| %>
+<%= form_for [@project, @donation] do |f|%>
 	<%= f.label :amount %>
-	<%= f.text_field :amount%>
+	<%= f.text_field :amount, autofocus: true, value: "", placeholder: 0.00 %>
 	<%= f.submit 'Make Donation' %>
 <%  end %>
 
