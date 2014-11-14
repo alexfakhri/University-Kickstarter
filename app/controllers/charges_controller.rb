@@ -8,6 +8,8 @@ class ChargesController < ApplicationController
 
 	def create
 	  amount = (params[:project][:amount].to_f*100).to_i
+	  project_id = params[:project][:project_id]
+	  token = params[:project][:token][:id]
 	  
 
 	  customer = Stripe::Customer.create(
