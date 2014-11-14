@@ -1,3 +1,4 @@
+
  <div id="myCarousel" class="carousel slide" data-ride="carousel">
       <!-- Indicators -->
       <ol class="carousel-indicators">
@@ -58,30 +59,29 @@
   </div>
 </form>
 
+<h2>Current University Projects</h2>
+
 <%= collection_select(:university, :name, @universities, :id, :name, {:prompt => true}, id: "uni-dropdown")%>
-
-<%= text_field_tag :university, nil, placeholder: "Enter university name...", class: "typeahead" %> 
-
-
-    <div class="container">
-      <div class="row">
+<%= text_field_tag :university, nil, placeholder: "Enter university name...", class: "typeahead" %>
+<div class="container">
+  <div class="row">
     <% if @projects.any? %>
     <% @projects.each do |project| %>
-        <div class="col-sm-6 col-md-4">
-        <div class="thumbnail">
-        <img data-src="image_tag project.image.url(:thumb)">
-        <%= image_tag project.image.url(:thumb) %>
-          <div class="caption">
-         <h3> <%= link_to project.title, project_path(project) %> </h3>
-      <p> <%= project.description %> </p>  
-      <p> Target amount: <%= number_to_currency(project.target_amount, unit: :£) %></p>
+    <div class="col-sm-6 col-md-4">
+      <div class="thumbnail">
+        <%= image_tag project.image.url(:large) %>
+        <div class="caption">
+          <h3> <%= link_to project.title, project_path(project) %> </h3>
+          <p> <%= project.description %> </p>
+          <p> Target amount: <%= number_to_currency(project.target_amount, unit: :£) %></p>
           <p> Recent donations <% project.donations.each do |donation| %>
-        <%= number_to_currency(donation.amount, unit: :£) %>
-        <% end %></p>
-        <p> Total donations so far <%= number_to_currency(project.total_donations, unit: :£) %></p>
-        <p> Number of backers <%= project.donations.count %></p> 
-        <p> Number of UNIQUE backers <%= project.unique_donations %></p> 
+          <%= number_to_currency(donation.amount, unit: :£) %>
+          <% end %></p>
+          <p> Total donations so far <%= number_to_currency(project.total_donations, unit: :£) %></p>
+          <p> Number of backers <%= project.donations.count %></p>
+          <p> Number of UNIQUE backers <%= project.unique_donations %></p>
           <p>Days left: <%= project.days_left %></p>
+
       <p>End date: <%= project.end_date.strftime("%d/%m/%Y") %></p>
 
       <div class="progress">
@@ -91,71 +91,59 @@
 </div>
     <%= link_to "View Project", project_path(project), class: "btn btn-primary" %>
     <%= link_to "Donate to project",  new_project_donation_path(project), class: "btn btn-success" %>
-      </div>
-       </div>
-       </div>
 
+          <p>End date: <%= project.end_date.strftime("%d/%m/%Y") %></p>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= number_to_percentage(project.donation_percentage, precision: 0) %>">
+              <%= number_to_percentage(project.donation_percentage, precision: 0) %>
+            </div>
+          </div>
+          <%= link_to "View Project", project_path(project), class: "btn btn-primary" %>
+          <%= link_to "Donate to project",  new_project_donation_path(project), class: "btn btn-success" %>
+        </div>
+
+      </div>
+    </div>
     <% end %>
-  <% else %>
+    <% else %>
     No projects yet
-  <% end %>
+    <% end %>
   </div>
 </div>
 
-
 <script type="text/javascript">
 
-    var universities = <%= @universities.to_json.html_safe %>
-$(document).ready(function() {
-    // $("#uni-dropdown").bind('change', function() {
-    //     var url = "/universities/"+ $(this).val()
-    //         window.location.replace(url);
-    // });
-
-    // var universities = gon.universities
-
-    //  $("h1").on('click', function() {
-    //     alert(universities)
-    //  });
     
+$(document).ready(function() {
+    $("#uni-dropdown").bind('change', function() {
+        var url = "/universities/"+ $(this).val()
+            window.location.replace(url);
+    });
 
-    // var substringMatcher = function(strs) {
-    //     return function findMatches(q, cb) {
-    //     var matches, substrRegex;
-     
-    //     // an array that will be populated with substring matches
-    //     matches = [];
-     
-    //     // regex used to determine if a string contains the substring `q`
-    //     substrRegex = new RegExp(q, 'i');
-     
-    //     // iterate through the pool of strings and for any string that
-    //     // contains the substring `q`, add it to the `matches` array
-    //     $.each(strs, function(i, str) {
-    //       if (substrRegex.test(str)) {
-    //         // the typeahead jQuery plugin expects suggestions to a
-    //         // JavaScript object, refer to typeahead docs for more info
-    //         matches.push({ value: str });
-    //       }
-    //     });
-     
-    //     cb(matches);
-    //   };
-    // };
 
-    var findMatches = function(query, cb){
-        console.log(universities);
-        cb(universities);
-    }
+    var substringMatcher = function(strs) {
+        return function findMatches(q, cb) {
+        var matches, substrRegex;
+        matches = [];
+        substrRegex = new RegExp(q, 'i');
+        $.each(strs, function(i, str) {
+          if (substrRegex.test(str)) {
+            matches.push({ name: str });
+          }
+        });
+        cb(matches);
+        console.log(matches);
+      };
+    };
 
-    // var universities = new Bloodhound({
-    //     remote: {
-    //         url: '/projects',
-    //     }
-    // });
+    var universityNames = []
+    var universities = <%= @universities.to_json.html_safe %>
 
-    // universities.initialize();
+    $.each(universities, function(i, university) {
+      universityNames.push(university.name);
+    })
 
+    console.log(universityNames)
 
     $('.typeahead').typeahead({
       hint: true,
@@ -165,18 +153,35 @@ $(document).ready(function() {
     {
       name: 'universities',
       displayKey: 'name',
-      source: findMatches,
+      source: substringMatcher(universityNames),
       templates: {
         suggestion: Handlebars.compile('<p><a href="/universities/{{id}}">{{name}}</a></p>')
       }
 
     });
+    //THIS SHIT WORKS:
 
-    // $(".typeahead").bind('change', function() {
-    //     var url = "/universities/"+ $(this).val()
-    //         window.location.replace(url);
+    // var universities = <%= @universities.to_json.html_safe %>
+
+    // var findMatches = function(query, cb){
+    //     console.log(universities);
+    //     cb(universities);
+    // }
+
+    // $('.typeahead').typeahead({
+    //   hint: true,
+    //   highlight: true,
+    //   minLength: 1
+    // },
+    // {
+    //   name: 'universities',
+    //   displayKey: 'name',
+    //   source: findMatches,
+    //   templates: {
+    //     suggestion: Handlebars.compile('<p><a href="/universities/{{id}}">{{name}}</a></p>')
+    //   }
+
     // });
-
 
 });
 </script>
