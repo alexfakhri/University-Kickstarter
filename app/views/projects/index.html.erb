@@ -49,7 +49,9 @@
 
 $(document).ready(function() {
     $("#uni-dropdown").bind('change', function() {
+
         var url = "/universities/"+ $(this).val()
+
             window.location.replace(url);
     });
 
