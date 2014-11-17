@@ -15,4 +15,4 @@
 /log/*.log
 /tmp
 
-config/secrets
+/config/secrets.yml
