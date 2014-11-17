@@ -1,0 +1,89 @@
+/*
+  =require twitter-bootstrap-static/bootstrap
+
+  Use Font Awesome icons (default)
+  To use Glyphicons sprites instead of Font Awesome, replace with "require twitter-bootstrap-static/sprites"
+  =require twitter-bootstrap-static/fontawesome
+  */
+
+/* User sign in and sign forms. */
+.border-form-div {
+  max-width: 300px;
+  padding: 19px 29px 29px;
+  margin: 0 auto 20px;
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  -webkit-border-radius: 5px;
+     -moz-border-radius: 5px;
+          border-radius: 5px;
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+     -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+          box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+.border-form-div .form-signin-heading,
+.border-form-div .checkbox {
+  margin-bottom: 10px;
+}
+.border-form-div input[type="text"],
+.border-form-div input[type="email"],
+.border-form-div input[type="password"] {
+  font-size: 16px;
+  height: auto;
+  margin-bottom: 15px;
+  padding: 7px 9px;
+}
+
+.container-fluid {
+  /*background-color: navy;*/
+}
+
+.span8 {
+  /*background-color: orange;*/
+  min-width: 75%;
+  display: inline;
+  float: left;
+}
+
+.span4 {
+  /*background-color: red;*/
+  min-width: 25%;
+  display: inline;
+  float: left;
+}
+
+.container-fluid {
+  margin-bottom: 10px;
+}
+
+.donationbuttons {
+    display: inline-block;
+    margin-top: 15px;
+    width: 100%;
+}
+
+.progress {
+  margin-bottom: 10px;
+}
+
+#homepagejumbotron {
+    background-image: url(http://www.sbs.ox.ac.uk/sites/default/files/Skoll_Centre/Images/background-skoll2.jpg);
+    background-size: cover;
+}
+
+#homepagejumbotron > img {
+  width:100%;
+}
+
+#homepagejumbotron h1 {
+  color: white;
+  text-shadow: 2px 2px 8px gray;
+}
+
+#homepagejumbotron h3 {
+  color: white;
+}
+
+#thumbnailimage {
+  height: 150px;
+  background-size: cover;
+}

@@ -1,9 +1,14 @@
 Rails.application.routes.draw do
+
+  devise_for :users, :controllers => { registrations: 'registrations' }
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+
+  root to: "projects#index"
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
@@ -13,6 +18,22 @@ Rails.application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
+
+  resources :universities do
+    resources :projects, shallow: true do
+      resources :donations
+    end
+  end
+
+
+  resources :charges
+  
+  resources :projects, only: [:index]
+
+  resources :universities do
+    get :autocomplete_university_name, :on => :collection
+  end
+    
 
   # Example resource route with options:
   #   resources :products do

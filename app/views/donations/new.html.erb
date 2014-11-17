@@ -1,0 +1,52 @@
+
+<h1>You're donating to :- <%= @project.title%> </h1>
+<h1><%= @project.description%> </h1>
+<%= form_for [@project, @donation] do |f|%>
+	<%= f.label :amount %>
+	<%= f.text_field :amount, autofocus: true, value: "" %>
+	<%= f.submit 'Make Donation' %>
+<%  end %>
+
+<script src="https://checkout.stripe.com/checkout.js"></script>
+
+<script type="text/javascript">
+	$( document ).ready(function(){
+
+		var $form = $('#new_donation');
+		var amount;
+
+		var handler = StripeCheckout.configure({
+	    key: '<%= Rails.configuration.stripe[:publishable_key] %>',
+	    token: function(token){
+	    	$.ajax({
+	    		type: "POST",
+	    		beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+	    		url: $form.attr("action"), 
+	    		data: { donation: {
+	    			amount: amount,  
+	    			token: token }
+	    		},
+				success: function(data) {
+					// console.log("success")
+  				 },
+   				error:function(status, error) {
+					// console.log("error")
+   				},		
+	    	})
+	    }
+		});
+
+		$form.on('submit', function(e) {
+			e.preventDefault();
+			amount = $('#donation_amount').val();
+
+			handler.open({
+				amount: amount * 100,
+				currency: "GBP"
+			});
+		});
+	});
+
+</script>
+
+

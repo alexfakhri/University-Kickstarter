@@ -1,0 +1,58 @@
+<div class="border-form-div">
+<h2>Sign up</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %>
+    <% if @validatable %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "off" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :university_user %><br />
+    <%= f.check_box :university_user, autocomplete: "off", id: "uni-select"%>
+  </div>
+
+  <div class="dropdown" id="uni-field">
+    <%= f.label :university_id %><br />
+    <%= f.collection_select :university_id, University.all, :id, :name %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Sign up" %>
+  </div>
+<% end %>
+
+<%= render "devise/shared/links" %>
+</div>
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $("#uni-field").hide();
+  
+  $('#uni-select').click(function() {
+    if( $(this).is(':checked')) {
+        $("#uni-field").show();
+    } else {
+        $("#uni-field").hide();
+    }
+  }); 
+
+});
+
+</script>
