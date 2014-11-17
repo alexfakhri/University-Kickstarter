@@ -32,6 +32,8 @@ gem 'twitter-typeahead-rails'
 # gem 'rails4-autocomplete'
 # gem 'twitter-typeahead-rails'
 
+gem 'rails_12factor', group: :production
+
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
   gem 'capybara'
