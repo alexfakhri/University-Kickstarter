@@ -11,13 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
 ActiveRecord::Schema.define(version: 20141113140031) do
-
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
 
   create_table "donations", force: true do |t|
     t.decimal  "amount",     precision: 8, scale: 2, default: 0.0
@@ -83,5 +80,4 @@ ActiveRecord::Schema.define(version: 20141113140031) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["university_id"], name: "index_users_on_university_id", using: :btree
 
->>>>>>> b7f3e28c0353f388dd81149561bcffa5e3ea7eaf
 end
