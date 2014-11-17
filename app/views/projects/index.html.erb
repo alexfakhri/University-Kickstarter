@@ -1,0 +1,118 @@
+<div class="jumbotron" id="homepagejumbotron">
+  <h1>Fundr changes the way that universities raise money.</h1>
+  <h3>Search for projects to fund at your university.</h3>
+    <form class="form-horizontal" role="form">
+    <div class="form-group form-group-lg">
+      <label class="control-label" for="formGroupInputLarge"></label>
+      <%= text_field_tag :university, nil, placeholder: "Enter university name...", class: "typeahead form-control", id: "formGroupInputLarge" %>
+    </div>
+  </form>
+</div>
+<div class="container">
+  <div class="row">
+    <% if @projects.any? %>
+    <% @projects.each do |project| %>
+    <div class="col-sm-6 col-md-4">
+      <div class="thumbnail">
+        <div id="thumbnailimage" style="background-image: url('<%=project.image.url(:large)%>')"></div>
+        <div class="caption">
+          <h3> <%= link_to project.title, project_path(project) %> </h3>
+          <p><%= truncate(project.description, :length => 200) %></p>
+          <p>Fundraising ends:<strong><%= project.end_date.strftime("%d/%m/%Y") %></strong></p>
+          <p class><h3><%= number_to_currency(project.target_amount, unit: :£) %> target</h3></p>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= number_to_percentage(project.donation_percentage, precision: 0) %>">
+              <%= number_to_percentage(project.donation_percentage, precision: 0) %>
+            </div>
+          </div>
+          <section>
+            <div class="col-md-4"><h4><%= number_to_currency(project.total_donations, unit: :£) %></h4>Donated</div>
+            <div class="col-md-4"><h4><%= project.unique_donations %></h4>Backers</div>
+            <div class="col-md-4"><h4><%= project.days_left %></h4>Days left</div>
+          </section>
+          </br>
+          <div class="text-center donationbuttons">
+          <%= link_to "View Project", project_path(project), class: "btn btn-primary" %>
+          <%= link_to "Donate to project",  new_project_donation_path(project), class: "btn btn-success" %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
+    <% else %>
+    No projects yet
+    <% end %>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+    $("#uni-dropdown").bind('change', function() {
+        var url = "/universities/"+ $(this).val()
+            window.location.replace(url);
+    });
+
+
+    var substringMatcher = function(universities) {
+        return function findMatches(query, callback) {
+
+        var substrRegex = new RegExp(query, 'i');
+        var matches = [];
+
+        $.each(universities, function(i, university) {
+          if (substrRegex.test(university.name)) {
+            matches.push(university);
+          }
+        });
+
+        callback(matches);
+        console.log(matches)
+      };
+    };
+
+    var universities = <%= @universities.to_json.html_safe %>
+
+    $('.typeahead').typeahead({
+      hint: true,
+      highlight: true,
+      minLength: 1
+    },
+    {
+      name: 'universities',
+      displayKey: 'name',
+      source: substringMatcher(universities),
+      templates: {
+        suggestion: Handlebars.compile('<p><a href="/universities/{{id}}">{{name}}</a></p>')
+      }
+
+    });
+
+    //THIS SHIT WORKS:
+
+    // var universities = <%= @universities.to_json.html_safe %>
+
+    // var findMatches = function(query, cb){
+    //     console.log(universities);
+    //     cb(universities);
+    // }
+
+    // $('.typeahead').typeahead({
+    //   hint: true,
+    //   highlight: true,
+    //   minLength: 1
+    // },
+    // {
+    //   name: 'universities',
+    //   displayKey: 'name',
+    //   source: findMatches,
+    //   templates: {
+    //     suggestion: Handlebars.compile('<p><a href="/universities/{{id}}">{{name}}</a></p>')
+    //   }
+
+    // });
+
+});
+</script>
+
+

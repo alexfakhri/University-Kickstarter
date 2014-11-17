@@ -1,0 +1,10 @@
+<% if @universities.any? %>
+  <% @universities.each do |university| %>
+    <h2> <%= link_to university.name, university_path(university) %> </h2>
+    <p> <%= university.description %> </p>	
+  <% end %>
+<% else %>
+  No universities yet
+<% end %>
+
+<a href='/universities/new'>Add a university</a>
