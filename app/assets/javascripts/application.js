@@ -12,5 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
-//= require_tree .
+//= require jquery-ui
+//= require handlebars
+//= require twitter/typeahead
+//= require twitter/bootstrap
+//= require_tree 
+

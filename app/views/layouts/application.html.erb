@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+
+
 <head>
   <title>UniversityKickstarter</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
@@ -7,6 +9,35 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+
+
+<div class="container">
+				<div class="header">
+				  <nav>
+				    <ul class="nav nav-pills pull-right">
+				      <% if user_signed_in? %>
+								<li role="presentation" class="active"><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+							<% else %>
+						  	<li role="presentation" class="active"><%= link_to "User sign in", new_user_session_path %></li>
+						  	<li role="presentation" class="active"><%= link_to "User sign up", new_user_registration_path %></li>
+							<% end %>
+							<li role="presentation" class="active"><a href="/projects">Projects</a></li>
+							<li role="presentation" class="active"><a href="/universities">Universities</a></li>
+				    </ul>
+				  </nav>
+				  <h1 class="text-muted"><a href="/">Fundr/Mental</a></h1>
+				</div>
+				</br>
+				
+
+<%= bootstrap_flash %>
+
+
+<!-- OR AS WE USED IN PREVIOUS FILES... eg flash.each do |name, msg | \n 
+content_tag :div, msg, class: name \n
+end %
+ -->
+
 
 <%= yield %>
 
