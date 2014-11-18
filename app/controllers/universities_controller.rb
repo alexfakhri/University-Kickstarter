@@ -11,7 +11,7 @@ class UniversitiesController < ApplicationController
 
 	def show
 		@university = University.find(params[:id])
-		@project = @university.projects.find(params[:id])
+		# @project = @university.projects.find(params[:id])
 	end
 
 	def create
