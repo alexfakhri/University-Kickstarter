@@ -14,3 +14,10 @@ To run:
 Tech used:
 Ruby on Rails, stripe, typeahead, bootstrap, paperclip, devise. See Gemfile for full list.
 AWS to be added in the future to help with the image storage.
+
+#### The Team
+
++ [Daniel Cutler](https://github.com/danjocutler)
++ [Rachel Nolan](https://github.com/SBLLB)
++ [Alex Fakhri](https://github.com/alexfakhri)
++ [Sean Stevens](https://github.com/slstevens)
